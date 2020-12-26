@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        This is A Security Project. It contains several cyber security issues. Please do not enter any private information.
+    </head>
+
+    <body>
+        <h1>User Account Details</h1>
+
+    <table>
+        <tr>
+            <th style="text-align:left">Username:<td>{{user.username}}
+        </tr>
+            <th style="text-align:left">Points: <td>{{user.account.balance}}
+        </tr>
+            <th style="text-align:left">pet name: <td>{{user.account.pet}}
+        </tr>
+            <th style="text-align:left">pet age: <td>{{user.account.petage}}
+    </table>
+
+    <form action="logout/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
+
+    <h2>Transfer Your Points to Another User</h2>
+
+    <form action="transfer/" method="GET">
+    <span>To:</span><br/>
+    <select name="to">
+        {% for account in accounts %}
+        <option value="{{account.owner.username}}">{{account.owner.username}}</option>
+        {% endfor %}
+    </select><br/>
+
+    <span>Amount:</span><br/>
+    <input type="number" name="amount"/><br/>
+
+    <input type="submit" value="Transfer"/>
+    </form>
+
+    <h2>Your Pet Diary Files here</h2>
+    <table>
+        {% for file in uploads %}
+        <tr>
+            <td>
+                {{file.name}}
+            </td>
+            <a href="download/{{file.id}}">Download!</a>
+            <td>
+                <form action='delete/' method='POST'>
+                {% csrf_token %}
+            <input type="hidden" name="id" value="{{file.id}}"/>
+            <input type="submit" value="Delete!"/>
+            </form>
+
+            {% endfor %}
+    </table>
+
+    <h2>Add files</h2>
+        <form action='add/' method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Add" />
+        </form>
+
+    <h2>Your Messages</h2>
+
+        {% for msg in msgs %}
+
+		<i>From {{msg.source.username}} to {{msg.target.username}}</i></br>
+		{{msg.content|safe}}
+		</br>
+		</br>
+
+		{% endfor %}
+
+
+    <h2>Send a Message</h2>
+
+        <form action='addmail/' method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            To:
+            <select name="to">
+            {% for user in users %}
+                <option value="{{user.username}}">{{user.username}}</option>
+            {% endfor %}
+            </select><br/>
+
+			<textarea name="content" cols="40" rows="5"></textarea><br/>
+            <input type="submit" value="Send"/>
+        </form>
+    </body>
+
+    </body>
+
+</body>
+
+</html>
