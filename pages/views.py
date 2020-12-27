@@ -40,6 +40,11 @@ def addView(request):
 	f.save()
 	return redirect('/')
 
+def deleteView(request):
+    f = File.objects.get(pk=request.POST.get('id'))
+    f.delete()
+    return redirect('/')
+
 @csrf_exempt 
 def mailView(request):
 	print(request.body.decode('utf-8'))
