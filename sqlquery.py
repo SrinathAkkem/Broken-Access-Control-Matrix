@@ -6,15 +6,14 @@ import os
 DEFAULT_PATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
 
 def query():
-	return "2%"
-
+	return "Fifi%"
 
 def main(argv):
 	user_id = sys.argv[1]
 	conn = sqlite3.connect(DEFAULT_PATH)
 	cursor = conn.cursor()
-	response = cursor.execute("SELECT iban FROM pages_account WHERE owner_id='%s' and balance LIKE '%%%s%%'" % (user_id, query())).fetchall()
-	print('Found entries:')
+	response = cursor.execute("SELECT points FROM pages_account WHERE owner_id='%s' and pet LIKE '%%%s%%'" % (user_id, query())).fetchall()
+	print('Users points:')
 	for r in response:
 		print(r[0])
 

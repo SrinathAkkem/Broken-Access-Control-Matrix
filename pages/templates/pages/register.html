@@ -1,0 +1,16 @@
+
+  <h2>Register</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <label for="id_pet">name of your pet:</label>
+    <input type="text" id="id_pet" name="pet"><br>
+    <label for="id_petage">your pets age:</label>
+    <input type="text" id="id_petage" name="petage"><br>
+    <label for="id_points">your accounts points:</label>
+    <input type="text" id="id_points" name="points"><br>
+    <label for="id_creditcard">your accounts creditcard number:</label>
+    <input type="text" id="id_creditcard" name="creditcard"><br>
+    <button type="submit">Register</button>
+  </form>

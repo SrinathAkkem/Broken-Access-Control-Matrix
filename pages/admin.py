@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Account, File, Message, Mail, Userinfo
+from .models import Account, File, Message, Userinfo
 
 admin.site.register(Account)
 
