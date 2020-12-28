@@ -6,14 +6,14 @@ import os
 DEFAULT_PATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
 
 def query():
-	return "Fifi%"
+	return "Lassie%"
 
 def main(argv):
 	user_id = sys.argv[1]
 	conn = sqlite3.connect(DEFAULT_PATH)
 	cursor = conn.cursor()
-	response = cursor.execute("SELECT points FROM pages_account WHERE owner_id='%s' and pet LIKE '%%%s%%'" % (user_id, query())).fetchall()
-	print('Users points:')
+	response = cursor.execute("SELECT petage FROM pages_account WHERE owner_id='%s' and pet LIKE '%%%s%%'" % (user_id, query())).fetchall()
+	print('Pets age:')
 	for r in response:
 		print(r[0])
 

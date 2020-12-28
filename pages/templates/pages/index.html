@@ -5,13 +5,11 @@
     </head>
 
     <body>
-        <h1>User Account Details</h1>
+        <h1>Pet Diary Account Details</h1>
 
     <table>
         <tr>
-            <th style="text-align:left">Username:<td>{{user.username}}
-        </tr>
-            <th style="text-align:left">points: <td>{{user.account.points}}
+            <th style="text-align:left">Username: <td>{{user.username}}
         </tr>
             <th style="text-align:left">pet name: <td>{{user.account.pet}}
         </tr>
@@ -21,22 +19,6 @@
     <form action="logout/" method="POST">
         {% csrf_token %}
         <input type="submit" value="Logout">
-    </form>
-
-    <h2>Transfer Your Points to Another User</h2>
-
-    <form action="transfer/" method="GET">
-    <span>To:</span><br/>
-    <select name="to">
-        {% for account in accounts %}
-        <option value="{{account.owner.username}}">{{account.owner.username}}</option>
-        {% endfor %}
-    </select><br/>
-
-    <span>Amount:</span><br/>
-    <input type="number" name="amount"/><br/>
-
-    <input type="submit" value="Transfer"/>
     </form>
 
     <h2>Your Pet Diary Files here</h2>

@@ -13,19 +13,6 @@ from django.contrib.auth.hashers import make_password
 import json
 import requests
 
-@login_required
-def transferView(request):
-    request.session['to'] = request.GET.get('to')
-    request.session['amount'] = int(request.GET.get('amount'))
-    amount = request.session['amount']
-    to = User.objects.get(username=request.session['to'])
-    request.user.account.points -= amount
-    to.account.points += amount
-    request.user.account.save()
-    to.account.save()
-
-    return redirect('/')
-
 def downloadView(request, fileid):
     f = File.objects.get(pk=fileid)
     filename = f.data.name.split('/')[-1]
