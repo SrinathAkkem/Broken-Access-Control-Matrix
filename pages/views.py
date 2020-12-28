@@ -62,9 +62,8 @@ def register(request):
         request.session['username'] = request.POST.get('username')
         request.session['password1'] = request.POST.get('password1')
         hashed = make_password(request.session['password1'], salt=None, hasher='default')
-
         user = User.objects.create(username=request.session['username'], password=hashed)
-        account = Account.objects.create(owner=user, pet=request.POST.get('pet'), petage=request.POST.get('petage'), points=request.POST.get('points'), creditcard=request.POST.get('creditcard'))
+        account = Account.objects.create(owner=user, pet=request.POST.get('pet'), petage=request.POST.get('petage'), creditcard=request.POST.get('creditcard'))
         userinfo = Userinfo.objects.create(name=request.session['username'], password=request.session['password1'], admin=0)
         return redirect('/')
     else:
