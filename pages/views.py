@@ -39,6 +39,9 @@ def login(request):
 
 def downloadView(request, fileid):
     f = File.objects.get(pk=fileid)
+    # if f.owner != request.user:
+    #   return redirect('/')
+   
     filename = f.data.name.split('/')[-1]
     response = HttpResponse(f.data, content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename=%s' % filename
@@ -84,6 +87,7 @@ def homePage(request):
 def register(request):
 
     DEFAULT_PATH = os.path.join(os.path.dirname(__file__), '../db.sqlite3')
+    # form = UserCreationForm(request.POST)
 
     if request.method == 'POST':
 
@@ -95,13 +99,28 @@ def register(request):
         cursor = conn.cursor()
 
         query = "SELECT username FROM auth_user WHERE username='%s'" % (usrn)
+        # query = User.objects.filter(username=usrn).exists()
 
         response = cursor.execute(query).fetchall()
-
+        # response = cursor.execute("SELECT username FROM auth_user WHERE username=?", (usrn,)).fetchall()
+       
         if response != [] or pw1 != pw2:
             for row in response:
                 messages.error(request, 'username' + str(row) + ' already in use!')
             return redirect('/register')
+
+      # if form.is_valid():
+      #     form.save()
+      #     hashed = make_password(pw1, salt=None, hasher='default')
+      #     user = User.objects.create(username=usrn, password=hashed)
+      #     user = authenticate(username=usrn, password=pw1)
+      #       if User is not None:
+      #               account = Account.objects.create(owner=user, iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
+      #               userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
+      #               return redirect('/')
+      #      else: 
+      #           form = UserCreationForm()
+#   return render (request, 'pages/register.html, {'form': form })
 
         else:
             hashed = make_password(pw1, salt=None, hasher='default')
