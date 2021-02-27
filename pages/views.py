@@ -111,8 +111,6 @@ def register(request):
 
       # if form.is_valid():
       #     form.save()
-      #     hashed = make_password(pw1, salt=None, hasher='default')
-      #     user = User.objects.create(username=usrn, password=hashed)
       #     user = authenticate(username=usrn, password=pw1)
       #       if User is not None:
       #               account = Account.objects.create(owner=user, iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
