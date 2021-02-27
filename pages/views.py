@@ -94,15 +94,9 @@ def register(request):
         conn = sqlite3.connect(DEFAULT_PATH)
         cursor = conn.cursor()
 
-        # SELECT * FROM members WHERE username = 'admin'--
         query = "SELECT username FROM auth_user WHERE username='%s'" % (usrn)
 
-        # query2 = User.objects.filter(username=usrn).exists()
-        print(query)
         response = cursor.execute(query).fetchall()
-        #problem : nothing get's returned here. 
-        print('response')
-        print(response)
 
         if response != [] or pw1 != pw2:
             for row in response:
