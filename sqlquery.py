@@ -12,7 +12,7 @@ def main(argv):
 	user_id = sys.argv[1]
 	conn = sqlite3.connect(DEFAULT_PATH)
 	cursor = conn.cursor()
-	response = cursor.execute("SELECT petage FROM pages_account WHERE owner_id='%s' and pet LIKE '%%%s%%'" % (user_id, query())).fetchall()
+	response = cursor.execute("SELECT petage FROM pages_account WHERE owner_id='%s'" % user_id).fetchall()
 	print('Pets age:')
 	for r in response:
 		print(r[0])

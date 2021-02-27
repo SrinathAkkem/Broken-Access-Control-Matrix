@@ -17,6 +17,12 @@ from django.contrib import admin, auth
 from django.urls import include, path
 from django.contrib.auth.views import LoginView, LogoutView
 from pages import views
+from securityflawsite import settings
+
+#urlpatterns = []
+
+#if settings.ADMIN_ENABLED is True:
+#    urlpatterns += [path('admin/', admin.site.urls),]
 
 urlpatterns = [
     path('pages/', include('pages.urls')),

@@ -1,14 +1,18 @@
+<h2>Register</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
 
-  <h2>Register</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+  <label for="id_iban">give your iban:</label>
+  <input type="text" id="iban" name="iban"><br>
+  <label for="id_creditcard">your accounts creditcard number:</label>
+  <input type="number" id="id_creditcard" name="creditcard"><br>
+  <button type="submit">Register</button>
 
-    <label for="id_pet">name of your pet:</label>
-    <input type="text" id="id_pet" name="pet"><br>
-    <label for="id_petage">your pets age:</label>
-    <input type="text" id="id_petage" name="petage"><br>
-    <label for="id_creditcard">your accounts creditcard number:</label>
-    <input type="text" id="id_creditcard" name="creditcard"><br>
-    <button type="submit">Register</button>
-  </form>
+  {% for message in messages %}
+      <div class="alert alert-success">
+        <a class="close" href="/register" data-dismiss="alert">x</a>
+        {{ message }}
+      </div>
+  {% endfor %}
+</form>

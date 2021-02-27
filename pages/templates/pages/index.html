@@ -5,15 +5,13 @@
     </head>
 
     <body>
-        <h1>Pet Diary Account Details</h1>
+        <h1>Account Details</h1>
 
     <table>
         <tr>
             <th style="text-align:left">Username: <td>{{user.username}}
         </tr>
-            <th style="text-align:left">pet name: <td>{{user.account.pet}}
-        </tr>
-            <th style="text-align:left">pet age: <td>{{user.account.petage}}
+            <th style="text-align:left">creditcard: <td>{{user.account.creditcard}}
     </table>
 
     <form action="logout/" method="POST">
@@ -21,7 +19,7 @@
         <input type="submit" value="Logout">
     </form>
 
-    <h2>Your Pet Diary Files here</h2>
+    <h2>Your textfiles here</h2>
     <table>
         {% for file in uploads %}
         <tr>

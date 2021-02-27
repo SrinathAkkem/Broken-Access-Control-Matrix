@@ -1,13 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 # Create your models here.
 
 class Account(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    pet = models.CharField(max_length=200)
-    petage = models.IntegerField()
-    points = models.IntegerField(default=0)
+    iban = models.IntegerField()
     creditcard = models.IntegerField()
 
 def user_directory_path(instance, filename):
@@ -22,7 +21,11 @@ class Userinfo(models.Model):
     password = models.CharField(max_length=200)
     admin = models.IntegerField()
 
+class Mail(models.Model):
+	content = models.TextField()
+
 class Message(models.Model):
 	source = models.ForeignKey(User, on_delete=models.CASCADE, related_name='source')
 	target = models.ForeignKey(User, on_delete=models.CASCADE, related_name='target')
 	content = models.TextField()
+	time = models.DateTimeField(auto_now_add=True)

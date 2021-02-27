@@ -10,3 +10,4 @@ urlpatterns = [
     path('addmail/', addMailView, name='add'),
     path('mail/', mailView, name='mail'),
 ]
+

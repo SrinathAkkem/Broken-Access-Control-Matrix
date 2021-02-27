@@ -10,8 +10,32 @@ from django.db.models import Q
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.hashers import make_password
+from django.contrib import messages
 import json
 import requests
+import sys
+import sqlite3
+import string
+import os
+import requests
+
+def login(request):
+
+    if request.method == 'GET':
+        content = ''
+        return render(request, 'templates/pages/login.html', {'context': context})
+
+    elif request.method == 'POST':
+        username == request.POST.get('username')
+        password == request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+
+        else:
+            context = {'error': 'Wrong credentials'}
+            return render(request, 'templates/pages/login.html', {'context': context})
 
 def downloadView(request, fileid):
     f = File.objects.get(pk=fileid)
@@ -58,14 +82,39 @@ def homePage(request):
 
 
 def register(request):
+
+    DEFAULT_PATH = os.path.join(os.path.dirname(__file__), '../db.sqlite3')
+
     if request.method == 'POST':
-        request.session['username'] = request.POST.get('username')
-        request.session['password1'] = request.POST.get('password1')
-        hashed = make_password(request.session['password1'], salt=None, hasher='default')
-        user = User.objects.create(username=request.session['username'], password=hashed)
-        account = Account.objects.create(owner=user, pet=request.POST.get('pet'), petage=request.POST.get('petage'), creditcard=request.POST.get('creditcard'))
-        userinfo = Userinfo.objects.create(name=request.session['username'], password=request.session['password1'], admin=0)
-        return redirect('/')
+
+        usrn = request.POST.get('username')
+        pw1 = request.POST.get('password1')
+        pw2 = request.POST.get('password2')
+
+        conn = sqlite3.connect(DEFAULT_PATH)
+        cursor = conn.cursor()
+
+        # SELECT * FROM members WHERE username = 'admin'--
+        query = "SELECT username FROM auth_user WHERE username='%s'" % (usrn)
+
+        # query2 = User.objects.filter(username=usrn).exists()
+        print(query)
+        response = cursor.execute(query).fetchall()
+        #problem : nothing get's returned here. 
+        print('response')
+        print(response)
+
+        if response != [] or pw1 != pw2:
+            for row in response:
+                messages.error(request, 'username' + str(row) + ' already in use!')
+            return redirect('/register')
+
+        else:
+            hashed = make_password(pw1, salt=None, hasher='default')
+            user = User.objects.create(username=usrn, password=hashed)
+            account = Account.objects.create(owner=user, iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
+            userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
+            return redirect('/')
     else:
         form = UserCreationForm()
     return render(request, 'pages/register.html', {'form': form})
