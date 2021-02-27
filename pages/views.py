@@ -118,8 +118,8 @@ def register(request):
       #               account = Account.objects.create(owner=user, iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
       #               userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
       #               return redirect('/')
-      #      else: 
-      #           form = UserCreationForm()
+      #  else: 
+      #     form = UserCreationForm()
 #   return render (request, 'pages/register.html, {'form': form })
 
         else:
