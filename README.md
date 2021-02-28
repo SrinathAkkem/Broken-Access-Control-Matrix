@@ -12,7 +12,7 @@ It is recommended to create a virtual environment for the project and installing
 
 $ python3 -m venv venv\
 $ sourve venv/bin/activate\
-$ pip install -r requirements.txt\
+$ pip install -r requirements.txt
 
 
 ## Users in the database
@@ -170,7 +170,7 @@ $ python3 manage.py migrate\
 $ python3 manage.py makemigrations pages\
 $ python3 manage.py sqlmigrate pages 0001\
 $ python3 manage.py migrate\
-$ python3 manage.py createsuperuser\
+$ python3 manage.py createsuperuser
 
 Then create a new user/s in the registration page. (Choosing username bob will make copypasting sql injections above easier.)
 
