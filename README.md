@@ -1,8 +1,8 @@
 # Cybersecurity Project
 
-This application demonstrates 5 cyber security flaws from the 2017 OWASP top 10 list.
+This application demonstrates 5 cybersecurity flaws from the 2017 OWASP top 10 list.
 
-Project has been created using python3. Run 
+The project has been created using python3. Run 
 
 $ python3 manage.py runserver
 
@@ -37,14 +37,16 @@ Let’s say that alice uploads a file with the id = 1. If then bob visits the ur
 
 restrict access to the file by modifying methods in the views.py as such:
 
-(Link to relevant code)[https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/views.py#L40]
+[Link to relevant code](https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/views.py#L40)
 
+```
 def downloadView(request, fileid): 				
 	...						
 	f = File.objects.get(pk=fileid)			
 	if f.owner != request.user:				
 		return redirect(‘/’)					
 	…						
+```
 
 This code checks the user’s id everytime they attempt to download a file, so access to files which are not theirs is cut off. 
 
@@ -59,7 +61,7 @@ If admin creates users, they should primarily be created from the admin view by 
 
 The register function should be modified:
 
-(Link to relevant code)[https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/views.py#L90]
+[Link to relevant code](https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/views.py#L90)
 
 ```
 def register(request):
@@ -143,7 +145,7 @@ The requested solution to this flaw will require resetting the database.
 
 One possible way is to make the Userinfo table’s password field and Account table’s credit card field encrypted by modifying the models. There are many existing python django libraries which can be installed with pip and used to encrypt fields so that the data is only decrypted when retrieved properly from the database. Here's one example:
 
-(Link to relevant code)[https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/models.py#L5]
+[Link to relevant code](https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/models.py#L5)
 
 models:py
 
@@ -190,7 +192,7 @@ you will see the result of the injection on the bottom of the register page. To 
 
 #### How to fix it
 
-(Link to relevant code)[https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/views.py#L101]
+[Link to relevant code](https://github.com/ssuihko/cybersecurityproject/blob/9f8595baed255b86b14a1e2a46deb85711ef405e/pages/views.py#L101)
 
 Option 1:
 
