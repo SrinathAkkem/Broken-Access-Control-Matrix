@@ -87,6 +87,7 @@ def homePage(request):
 def register(request):
 
     DEFAULT_PATH = os.path.join(os.path.dirname(__file__), '../db.sqlite3')
+    # FLAW 4
     # form = UserCreationForm(request.POST)
 
     if request.method == 'POST':
@@ -99,9 +100,11 @@ def register(request):
         cursor = conn.cursor()
 
         query = "SELECT username FROM auth_user WHERE username='%s'" % (usrn)
+        # FLAS 5 option 2
         # query = User.objects.filter(username=usrn).exists()
 
         response = cursor.execute(query).fetchall()
+        # FLAW 5 option 1
         # response = cursor.execute("SELECT username FROM auth_user WHERE username=?", (usrn,)).fetchall()
        
         if response != [] or pw1 != pw2:
@@ -109,16 +112,26 @@ def register(request):
                 messages.error(request, 'username' + str(row) + ' already in use!')
             return redirect('/register')
 
-      # if form.is_valid():
-      #     form.save()
-      #     user = authenticate(username=usrn, password=pw1)
-      #       if User is not None:
-      #               account = Account.objects.create(owner=user, iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
-      #               userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
-      #               return redirect('/')
-      #  else: 
-      #     form = UserCreationForm()
+        # FLAW 5 option 2 continued (if clause above modified):
+        # if query is True or pw1 != pw2:
+        #   if pw1 != pw2:
+        #       messages.error(request, ‘The passwords didn’t match!’)
+        #   else:
+        #       messages.error(request, ‘username ’ + usrn + ‘ is already in use’)
+        # return redirect('/register')
+
+        # FLAW 4
+        # if form.is_valid():
+        #     form.save()
+        #     user = authenticate(username=usrn, password=pw1)
+        #       if User is not None:
+        #               account = Account.objects.create(owner=user, iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
+        #               userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
+        #               return redirect('/')
+        #  else: 
+        #     form = UserCreationForm()
 #   return render (request, 'pages/register.html, {'form': form })
+# (and delete code below)
 
         else:
             hashed = make_password(pw1, salt=None, hasher='default')
