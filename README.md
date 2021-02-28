@@ -1,6 +1,6 @@
 # Cybersecurity Project
 
-This application is ment to demonstrate several cyber security flaws from the 2017 OWASP top 10 list.
+This application demonstrates 5 cyber security flaws from the 2017 OWASP top 10 list.
 
 Project has been created using python3. Run 
 
@@ -196,11 +196,14 @@ Option 1:
 
 modify views.py's register function cursor.execute query:
 
+```
 response = cursor.execute("SELECT username FROM auth_user WHERE username=?", (usrn,)).fetchall()
+```
 
 Option 2:
 Remove the raw query from registration on views.py. To check out wether a username already exists within the database one can use code like this instead:
 
+```
 query = User.objects.filter(username=usrn).exists()
 
 if query is True or pw1 != pw2:
@@ -209,5 +212,6 @@ if query is True or pw1 != pw2:
 	else:
 		messages.error(request, ‘username ’ + usrn + ‘ is already in use’)
 	return redirect('/register')
+```
 
 The username already existing username should be taken from the usrn parameter, not the query. 
