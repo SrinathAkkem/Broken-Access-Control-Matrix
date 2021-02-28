@@ -10,9 +10,9 @@ to start the application from command line.
 
 It is recommended to create a virtual environment for the project and installing requirements.txt's dependencies. 
 
-$ python3 -m venv venv
-$ sourve venv/bin/activate
-$ pip install -r requirements.txt
+$ python3 -m venv venv\
+$ sourve venv/bin/activate\
+$ pip install -r requirements.txt\
 
 
 ## Users in the database
@@ -165,12 +165,12 @@ password = encrypt(models.CharField(max_length=200))
 admin = models.IntegerField()
 ```
 
-After this delete 0001_initial.py and db.sqlite3 files. Run commands:
-$ python3 manage.py migrate
-$ python3 manage.py makemigrations pages
-$ python3 manage.py sqlmigrate pages 0001
-$ python3 manage.py migrate
-$ python3 manage.py createsuperuser
+After this delete 0001_initial.py and db.sqlite3 files. Run commands:\
+$ python3 manage.py migrate\
+$ python3 manage.py makemigrations pages\
+$ python3 manage.py sqlmigrate pages 0001\
+$ python3 manage.py migrate\
+$ python3 manage.py createsuperuser\
 
 Then create a new user/s in the registration page. (Choosing username bob will make copypasting sql injections above easier.)
 
@@ -181,8 +181,10 @@ Now the retrieved data from the sql injections above should should be in an encr
 #### Description
 The registration function from views.py contains a raw sql query, which makes the application vulnerable to SQL injections:
 
+```
 query = "SELECT id FROM auth_user WHERE username='%s'" % (usrn)
 response = cursor.execute(query).fetchall()
+```
 
 To test an injection go to the registration form and enter the following to the username field:
 
@@ -216,4 +218,4 @@ if query is True or pw1 != pw2:
 	return redirect('/register')
 ```
 
-The username already existing username should be taken from the usrn parameter, not the query. 
+The already existing username should be taken from the usrn parameter, not the query. 
