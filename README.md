@@ -73,15 +73,14 @@ if request.method == 'POST':
 
 …
 	if form.is_valid():
-
-	     form.save()
-	     user = authenticate(username=usrn, password=pw1)
-			if user is not None:
-				account = Account.objects.create(owner=user, points=request.POST.get('points'), iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
-				userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
+	    form.save()
+	    user = authenticate(username=usrn, password=pw1)
+		if user is not None:
+			account = Account.objects.create(owner=user, points=request.POST.get('points'), iban=request.POST.get('iban'), creditcard=request.POST.get('creditcard'))
+			userinfo = Userinfo.objects.create(name=usrn, password=pw1, admin=0)
 				return redirect('/')
 	else:
-		form = UserCreationForm()
+	    form = UserCreationForm()
 return render(request, 'pages/register.html', {'form': form})
 ```
 
@@ -94,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS.
 There is an unprotected message field on the application, where one can put code, such as javascript. It is for example possible to steal the victims csfrtoken and session id. This can be demonstrated by entering a following message:
 
 ```javascript
- <script>
+<script>
 var xhr = new XMLHttpRequest();
 xhr.open("POST", /mail/, true);
 xhr.setRequestHeader('Content-Type', 'application/json')
