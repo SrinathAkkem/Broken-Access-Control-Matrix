@@ -173,7 +173,7 @@ $ python3 manage.py createsuperuser
 
 Then create a new user/s in the registration page. (Choosing username bob will make copypasting sql injections above easier.)
 
-Now the retrieved data from the sql injections above should should be in an encrypted form.
+Now the retrieved data from the sql injections above should should be in an encrypted form. Also since the encryption uses the secret key from settings.py, it should be hidden, for example, in an environment variable.
 
 ### SQL injection
 
