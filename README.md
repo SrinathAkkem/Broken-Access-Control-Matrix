@@ -217,4 +217,4 @@ if query is True or pw1 != pw2:
 	return redirect('/register')
 ```
 
-The already existing username should be taken from the usrn parameter, not the query. 
+The already existing username should be taken from the usrn variable, not the query. 
